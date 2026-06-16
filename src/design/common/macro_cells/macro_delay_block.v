@@ -20,15 +20,15 @@ macro_delay_chain u_delay_chain(
     .invert_ctrl    (  invert_ctrl         ), 
     .delay_ctrl     (  thermo_ctrl         ), 
     .delay_sig      (  delay_sig           ), 
-    .delayed_out    (  delayed_sig         )  
+    .delayed_out    (  delayed_out         )  
 );
 
-macro_mux2 u_bypass_mux(
-    .d0             (  delayed_sig         ),
-    .d1             (  delay_sig           ),
-    .s              (  scan_mode           ),
-    .o              (  delayed_out         )
-);
+// macro_mux2 u_bypass_mux(
+//     .d0             (  delayed_sig         ),
+//     .d1             (  delay_sig           ),
+//     .s              (  scan_mode           ),
+//     .o              (  delayed_out         )
+// );
 
 endmodule
 
