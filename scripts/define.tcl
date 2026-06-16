@@ -1,4 +1,5 @@
-set_property verilog_define {
-    FPGA
-} [current_fileset]
-# <!-- current_fileset 一般是source_1即设计源文件, 需要对仿真区域也使用相同的宏定义可以将current_fileset改为get_filesets sim_1 -->
+# 为综合文件集 sources_1 设置宏定义
+set_property verilog_define {FPGA} [get_filesets sources_1]
+
+# 为仿真文件集 sim_1 设置宏定义
+set_property verilog_define {FPGA} [get_filesets sim_1]

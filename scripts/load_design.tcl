@@ -59,3 +59,4 @@ read_verilog -sv ./src/design/lvds_subsys/lvds_tx/lvds_tx_wrap.sv
 read_verilog -sv ./src/design/lvds_subsys/common/prbs8_gen.sv
 read_verilog -sv ./src/design/lvds_subsys/axis_switch/priority_encoder.sv
 read_verilog -sv ./src/design/lvds_subsys/top/lvds_subsys.sv
+read_verilog -sv ./src/design/top/lvds_top.sv

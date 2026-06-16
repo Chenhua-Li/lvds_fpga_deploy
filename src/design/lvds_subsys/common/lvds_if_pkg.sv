@@ -5,6 +5,7 @@ localparam RX_WF_INPUT_PIPELINE_EN = 1;
 `else
 localparam RX_WF_INPUT_PIPELINE_EN = 0;
 `endif
+localparam TX_WF_INPUT_PIPELINE_EN = 1;
 localparam AXIS_TX_SRAM_INST_EN = 0;
 localparam AXIS_DATA_WIDTH = 96;
 localparam LVDS_PAD_NUM = 5;

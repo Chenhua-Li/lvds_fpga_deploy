@@ -1,7 +1,7 @@
 // filename: tb_lvds_subsys_cfg.sv
 `timescale 1ns / 1ps
 
-module tb_lvds_subsys_cfg;
+module tb_lvds_subsys_tx_rx_test;
 
     //------------------------------------------------------------------------
     // 参数定义

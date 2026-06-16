@@ -1,4 +1,3 @@
-// Author: Gemini ...
 module DW_ecc(
     gen, 
     correct_n, 
