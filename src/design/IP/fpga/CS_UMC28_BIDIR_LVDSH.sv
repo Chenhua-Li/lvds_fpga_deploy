@@ -37,8 +37,23 @@ logic       rx_q2;
 logic [1:0] rx_data_s;
 logic [1:0] rxda;
 
+// logic       CP_IN;
+
 assign reset = ~RESET_N;
-assign CP_IN = INV_CP ? ~CP : CP;
+// assign CP_IN = INV_CP ? ~CP : CP;
+// macro_clk_mux u_clk_mux(
+//     .d0           ( ~CP                     ),
+//     .d1           ( CP                      ),
+//     .s            ( INV_CP                  ),
+//     .o            ( CP_IN                  )
+// );
+
+// macro_clk_buf u_clk_buf(
+//     .a            ( CP_MUX                  ),
+//     .o            ( CP_IN                   )
+// );
+// donot realize inv cp beacuse of the bufg cascade connection
+// assign CP_IN = CP; 
 
 IOBUFDS u_iobufds (
     .O   (pad_rx_data),
@@ -48,7 +63,7 @@ IOBUFDS u_iobufds (
     .T   (~TXEN)
 );
 
-always_ff @(negedge CP_IN or posedge reset) begin
+always_ff @(posedge CP or posedge reset) begin
     if (reset) begin
         tx_d1 <= 1'b0;
         tx_d2 <= 1'b0;
@@ -65,7 +80,7 @@ ODDRE1 #(
     .SRVAL          (1'b0)
 ) u_oddre1 (
     .Q  (tx_ddr_data),
-    .C  (CP_IN),
+    .C  (CP),
     .D1 (tx_d1),
     .D2 (tx_d2),
     .SR (reset)
@@ -75,18 +90,18 @@ assign tx_pad_data = DDR_EN ? tx_ddr_data : TXDA[0];
 
 IDDRE1 #(
     .DDR_CLK_EDGE   ("SAME_EDGE_PIPELINED"),
-    .IS_CB_INVERTED (1'b1),
+    .IS_CB_INVERTED (1'b0),
     .IS_C_INVERTED  (1'b1)
 ) u_iddre1 (
     .Q1 (rx_q1),
     .Q2 (rx_q2),
-    .C  (CP_IN),
-    .CB (~CP_IN),
+    .C  (CP),
+    .CB (CP),
     .D  (pad_rx_data),
     .R  (reset)
 );
 
-always_ff @(posedge CP_IN or posedge reset) begin
+always_ff @(posedge CP or posedge reset) begin
     if (reset) begin
         rxda <= 2'b00;
     end else begin
@@ -96,7 +111,7 @@ end
 
 assign rx_data_s = SYNC_EN ? (DDR_EN ? rxda : {1'b0, pad_rx_data}) : 2'b0;
 
-assign RXDA   = RXEN ? pad_rx_data : 1'bz;
+assign RXDA   = RXEN ? pad_rx_data : 1'b0;
 assign RXDA_S = RXEN ? rx_data_s : 2'b0;
 
 endmodule
