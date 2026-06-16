@@ -1,0 +1,29 @@
+block pcie_sw_csr_block {
+	bytes 4;
+	register core_cfg_ctrl @ 0x1ff_f000 {
+		field en @'d0 { bits 1; reset 0x0; access rw;}
+		field bc_en @'d8 { bits 1; reset 0x0; access rw;}
+		field latency @'d16 { bits 5; reset 0x0; access rw;}
+	}
+	register core_cfg_intr @ 0x1ff_f004 {
+		field en @'d0 { bits 1; reset 0x0; access rw;}
+		field wr_mask @'d1 { bits 1; reset 0x0; access rw;}
+		field rd_mask @'d2 { bits 1; reset 0x0; access rw;}
+	}
+	register core_cfg_st @ 0x1ff_f008 {
+		field wr_done @'d0 { bits 1; reset 0x0; access rw1c;}
+		field rd_done @'d1 { bits 1; reset 0x0; access rw1c;}
+	}
+	register core_cfg_addr @ 0x1ff_f00c {
+		field id @'d0 { bits 4; reset 0x0; access rw;}
+		field op @'d6 { bits 1; reset 0x0; access ro;}
+		field addr @'d7 { bits 25; reset 0x0; access ro;}
+	}
+	register core_cfg_data @ 0x1ff_f010 {
+		field val @'d0 { bits 32; reset 0x0; access ro;}
+	}
+}
+ system pcie_sw_csr {
+	bytes 4;
+	block pcie_sw_csr_block=pcie_sw_csr_blk @ 0x00 ; 
+}
