@@ -27,4 +27,4 @@ source main.tcl
 Use the GUI
 
 # Opening an Existing Project
-To open an existing project, click the .xpr file in the project folder.
+To open an existing project, click the .xpr file in the vivado_prj folder.
