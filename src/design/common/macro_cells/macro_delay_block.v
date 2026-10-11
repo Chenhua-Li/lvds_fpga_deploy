@@ -10,7 +10,7 @@ wire         invert_ctrl;
 
 assign invert_ctrl = delay_ctrl[7];
 
-`ifndef FPGA_IP
+`ifndef FPGA
     macro_hex2thermo u_hex2thermo(
         .hex            (  delay_ctrl[6:0]     ), 
         .thermo         (  thermo_ctrl         )  
